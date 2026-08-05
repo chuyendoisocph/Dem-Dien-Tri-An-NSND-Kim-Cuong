@@ -21,7 +21,8 @@
 <meta name="twitter:description" content="18:30–21:30, Thứ Bảy 22/08/2026 · Hoa Viên Bình Dương, TP.HCM · Vào cổng miễn phí." />
 <meta name="twitter:image" content="kim-cuong.png" />
 
-<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20rx='6'%20fill='%236c1120'/%3E%3Ctext%20x='16'%20y='22'%20font-family='Georgia,serif'%20font-size='15'%20font-weight='700'%20fill='%23e8c766'%20text-anchor='middle'%3EKC%3C/text%3E%3C/svg%3E" />
+<link rel="icon" type="image/png" href="logo.png" />
+<link rel="apple-touch-icon" href="logo.png" />
 
 <!--
   ==================================================================
@@ -395,7 +396,7 @@
 
   /* ============================ HERO MOBILE ============================ */
   @media (max-width:600px){
-    header.hero{ padding:0; min-height:0; overflow-x:clip; }
+    header.hero{ padding:0; min-height:0; overflow-x:clip; background:#FFF7E3; }
     /* Mobile dùng ảnh sân khấu sáng, không chồng thêm rèm composite dày */
     .mobile-curtain,.stage-curtain{ display:none; }
 
@@ -409,11 +410,15 @@
     .hero-bg{
       display:block; position:absolute; top:0; left:0; right:0; width:100%; height:min(74svh,720px);
       object-fit:cover; object-position:center top; z-index:0;
+      -webkit-mask-image:linear-gradient(to bottom,
+        #000 0%, #000 54%, rgba(0,0,0,.92) 64%, rgba(0,0,0,.45) 78%, transparent 100%);
+      mask-image:linear-gradient(to bottom,
+        #000 0%, #000 54%, rgba(0,0,0,.92) 64%, rgba(0,0,0,.45) 78%, transparent 100%);
     }
     header.hero::after{
       content:""; position:absolute; inset:0; z-index:1; pointer-events:none;
       background:
-        linear-gradient(180deg, transparent 48%, rgba(255,247,227,.28) 58%, rgba(255,247,227,.78) 72%, #FFF7E3 84%),
+        linear-gradient(180deg, transparent 46%, rgba(255,247,227,.32) 57%, rgba(255,247,227,.84) 70%, #FFF7E3 80%),
         radial-gradient(118% 58% at 50% 36%,
           rgba(255,248,230,.82), rgba(255,247,227,.34) 50%, rgba(255,247,227,0) 78%);
     }
@@ -429,11 +434,12 @@
     /* Con dấu -> con tem góc trên-trái, đè mép trái, chừa trống phần giữa/phải */
     .seal{
       position:absolute; z-index:5; margin:0;
-      top:clamp(8px,2.5vw,14px); left:clamp(8px,2.5vw,16px); right:auto;
+      top:calc(14px + env(safe-area-inset-top, 0px));
+      left:calc(14px + env(safe-area-inset-left, 0px)); right:auto;
       width:clamp(58px,15.5vw,66px); height:clamp(58px,15.5vw,66px);
       font-size:clamp(.46rem,2.2vw,.55rem); transform:rotate(-8deg);
     }
-    .seal.l{ left:clamp(8px,2.5vw,16px); }
+    .seal.l{ left:calc(14px + env(safe-area-inset-left, 0px)); }
     .seal .big{ font-size:.92rem; }
 
     /* Hệ thống khoảng cách + cỡ chữ (clamp) */
@@ -452,6 +458,8 @@
     .scroll-cue{ margin:18px 0 0; color:#7a1324; }
   }
   @media (max-width:374px){
+    .seal{ width:54px; height:54px; font-size:.44rem; }
+    .seal .big{ font-size:.86rem; }
     .scroll-cue{ letter-spacing:.09em; font-size:.68rem; }
   }
   @media (max-height:500px) and (orientation:landscape){
@@ -743,7 +751,6 @@
     border:1px solid var(--antique-gold); border-radius:6px; box-shadow:0 24px 54px rgba(108,17,32,.14);
     display:grid; grid-template-columns:44% 56%; overflow:hidden; }
   .invite::before{ content:""; position:absolute; inset:7px; border:1px solid rgba(197,150,66,.55); border-radius:3px; pointer-events:none; z-index:1; }
-  .inv-lotus{ position:absolute; right:14px; bottom:10px; width:120px; height:auto; color:var(--lotus-deep); opacity:.06; z-index:0; pointer-events:none; }
 
   .inv-message{ position:relative; z-index:2; padding:clamp(28px,4vw,44px); border-right:2px dashed rgba(197,150,66,.5); }
   .inv-details{ position:relative; z-index:2; padding:clamp(28px,4vw,44px); display:flex; flex-direction:column; gap:18px; }
@@ -901,9 +908,15 @@
   footer{ position:relative; background:linear-gradient(180deg,#5c1120,#360a12); color:#f0e2c8; padding:0 0 32px; text-align:center; margin-top:36px; }
   footer .foot-marquee{ padding:10px 8px; background:rgba(0,0,0,.18); border-bottom:1px solid rgba(232,199,102,.3); opacity:.6; }  /* không cạnh tranh với màn kết */
   footer .foot-body{ padding:38px 0 0; }
-  footer .f-lotus{ color:var(--gold-soft); width:50px; height:auto; margin:0 auto 14px; opacity:.85; }
   /* desktop: hàng trên = đơn vị + website; hàng dưới = hotline */
-  footer .f-top{ display:flex; flex-wrap:wrap; align-items:baseline; justify-content:center; gap:6px 26px; }
+  footer .f-top{ display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:18px 28px; }
+  footer .f-org-wrap{ display:flex; align-items:center; gap:18px; min-width:0; }
+  footer .f-logo-link{
+    flex:none; display:block; padding:6px; border:1px solid rgba(232,199,102,.42); border-radius:18px;
+    background:#fffaf0; box-shadow:0 10px 24px rgba(20,2,6,.2);
+  }
+  footer .f-logo{ width:104px; height:104px; object-fit:contain; border-radius:12px; }
+  footer .f-org-copy{ min-width:0; }
   footer .f-org-label{ font-family:var(--display); letter-spacing:.24em; text-transform:uppercase; font-size:.7rem; color:var(--gold-soft); }
   footer .f-org{ font-family:var(--display); font-weight:700; font-size:1.3rem; color:#fbeed0; margin:.2em 0 0; }
   footer .f-abbr{ color:var(--gold-soft); font-style:italic; }
@@ -1057,6 +1070,9 @@
     footer .hotline{ width:100%; min-height:48px; justify-content:center; }
     footer{ padding-bottom:36px; }
     footer .foot-body{ padding-top:42px; }
+    footer .f-top{ gap:16px; }
+    footer .f-org-wrap{ flex-direction:column; gap:12px; }
+    footer .f-logo{ width:88px; height:88px; }
     footer .f-org{ font-size:1.22rem; }
   }
 
@@ -1258,8 +1274,6 @@
     </div>
 
     <div class="invite reveal">
-      <svg class="inv-lotus" viewBox="0 0 120 96" aria-hidden="true"><use href="#lotus"/></svg>
-
       <!-- VÙNG TRÁI — thông điệp mời -->
       <div class="inv-message">
         <span class="inv-ticketline" aria-hidden="true">Vé mời sân khấu</span>
@@ -1369,12 +1383,15 @@
 <footer>
   <div class="foot-marquee"><div class="marquee-lights" id="marqueeFoot" aria-hidden="true"></div></div>
   <div class="foot-body wrap">
-    <svg class="f-lotus" viewBox="0 0 120 96" aria-hidden="true"><use href="#lotus"/></svg>
-
     <div class="f-top">
       <div class="f-org-wrap">
-        <div class="f-org-label">Đơn vị tổ chức</div>
-        <div class="f-org">Công ty Cổ Phần Đầu Tư Xây Dựng Chánh Phú Hòa <span class="f-abbr">(CPHA CO.)</span></div>
+        <a class="f-logo-link" href="https://cphaco.vn" target="_blank" rel="noopener" aria-label="Truy cập website Công ty Cổ Phần Đầu Tư Xây Dựng Chánh Phú Hòa">
+          <img class="f-logo" src="logo.png" alt="Logo Công ty Cổ Phần Đầu Tư Xây Dựng Chánh Phú Hòa" width="639" height="639" loading="lazy" decoding="async" />
+        </a>
+        <div class="f-org-copy">
+          <div class="f-org-label">Đơn vị tổ chức</div>
+          <div class="f-org">Công ty Cổ Phần Đầu Tư Xây Dựng Chánh Phú Hòa <span class="f-abbr">(CPHA CO.)</span></div>
+        </div>
       </div>
       <div class="f-web"><a href="https://cphaco.vn" target="_blank" rel="noopener">cphaco.vn</a></div>
     </div>
