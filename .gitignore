@@ -1,0 +1,25 @@
+# Chỉ đưa các tệp website dùng để triển khai lên repository.
+*
+
+!.gitignore
+!README.md
+!index.html
+
+!assets/
+!assets/**
+
+!kim-cuong.png
+!lotus-corner.png
+!mask-emblem.png
+!rem-ben-trim.png
+!rem-dong.png
+!rem-moi-mobile.png
+!rem-tren-trim.png
+!valance-only.png
+
+!kc-dauan.jpg
+!kc-giadinh.jpg
+!kc-portrait.jpg
+!kc-sankhau-1.jpg
+!kc-vaidien-1.jpg
+!kc-vaidien-2.jpg
