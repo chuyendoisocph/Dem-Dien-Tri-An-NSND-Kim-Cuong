@@ -436,50 +436,77 @@
     font-style: italic;
   }
 
-  .gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-auto-flow: dense;
-    gap: 8px;
-    margin-bottom: 2rem;
+  /* ─── PHÓNG SỰ ẢNH (mỗi ảnh một khoảnh khắc) ─── */
+  .essay {
+    display: flex;
+    flex-direction: column;
+    gap: 4.5rem;
+    margin-bottom: 2.5rem;
+    counter-reset: moment;
   }
+  .moment {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 2.6rem;
+    align-items: center;
+    margin: 0;
+    counter-increment: moment;
+  }
+  .moment:nth-child(even) { grid-template-columns: 1fr 1.5fr; }
+  .moment:nth-child(even) .moment-img { order: 2; }
 
-  .gallery-item {
-    background: #1c1512;
-    aspect-ratio: 4/3;
+  .moment-img {
     position: relative;
     overflow: hidden;
+    aspect-ratio: 3/2;
     cursor: pointer;
+    background: #1c1512;
     outline: none;
+    box-shadow: 0 18px 44px rgba(20,14,8,0.18);
   }
-  .gallery-item img {
+  .moment-img img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
-    transition: transform 0.6s cubic-bezier(0.2,0.7,0.2,1);
+    transition: transform 0.7s cubic-bezier(0.2,0.7,0.2,1);
   }
-  .gallery-item:hover img { transform: scale(1.05); }
-  .gallery-item:focus-visible { box-shadow: 0 0 0 3px var(--gold); }
-  .gallery-item.feature { grid-column: span 2; grid-row: span 2; aspect-ratio: auto; }
-
-  .gi-cap {
+  .moment-img:hover img { transform: scale(1.045); }
+  .moment-img:focus-visible { box-shadow: 0 0 0 3px var(--gold); }
+  .moment-img::after {
+    content: '⤢';
     position: absolute;
-    left: 0; right: 0; bottom: 0;
-    padding: 1.7rem 0.95rem 0.75rem;
-    background: linear-gradient(to top, rgba(14,12,10,0.85) 0%, rgba(14,12,10,0) 100%);
-    color: #F5EDD8;
-    font-family: 'EB Garamond', serif;
-    font-size: 0.84rem;
-    line-height: 1.35;
-    letter-spacing: 0.01em;
-    opacity: 0;
-    transform: translateY(8px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    pointer-events: none;
+    right: 0.7rem; bottom: 0.45rem;
+    color: rgba(245,237,216,0);
+    font-size: 1rem;
+    transition: color 0.25s ease;
   }
-  .gallery-item:hover .gi-cap,
-  .gallery-item:focus-visible .gi-cap { opacity: 1; transform: none; }
+  .moment-img:hover::after { color: rgba(245,237,216,0.85); }
+
+  .moment-index {
+    display: block;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.32em;
+    color: var(--gold);
+    margin-bottom: 0.8rem;
+  }
+  .moment-index::before { content: 'KHOẢNH KHẮC ' counter(moment, decimal-leading-zero); }
+  .moment-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.35rem, 2.4vw, 2rem);
+    font-weight: 700;
+    line-height: 1.16;
+    color: var(--ink);
+    margin-bottom: 0.55rem;
+  }
+  .moment-sub {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 1.02rem;
+    color: #6A5E52;
+    line-height: 1.5;
+  }
 
   /* ─── LIGHTBOX ─── */
   .lightbox {
@@ -955,6 +982,10 @@
   .is-light .artist-tag:hover { border-color: var(--velvet); color: var(--velvet); }
   .is-light .artist-tag.featured { border-color: var(--velvet); color: var(--velvet); background: rgba(107,26,26,0.08); }
   .is-light .artists-note { color: rgba(58,52,44,0.72); }
+  .is-light .artist-tag.artist-more { border-color: transparent; font-style: italic; color: #8A7E70; }
+  .artists-crew { margin-top: 1.6rem; display: flex; flex-direction: column; gap: 0.4rem; }
+  .artists-crew .crew-line { font-family: 'EB Garamond', serif; font-size: 0.96rem; color: #6A5E52; }
+  .artists-crew .crew-line strong { color: var(--ink); font-weight: 600; font-style: normal; }
 
   .is-light .press-grid { background: rgba(201,168,76,0.38); }
   .is-light .press-card { background: #FBF6E9; }
@@ -987,11 +1018,33 @@
   .hero-date { color: var(--gold-light); opacity: 1; }
   .hero-tagline { color: #EDE3CE; opacity: 0.96; text-shadow: 0 1px 14px rgba(0,0,0,0.55); }
 
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-top: 0.3rem;
+    padding: 0.8rem 2.1rem;
+    border: 1px solid var(--gold-light);
+    color: #FBF4E2;
+    background: rgba(201,168,76,0.08);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.25s ease, color 0.25s ease;
+  }
+  .hero-cta:hover { background: var(--gold-light); color: #1A1206; }
+  .hero-cta .arrow { transition: transform 0.25s ease; }
+  .hero-cta:hover .arrow { transform: translateX(4px); }
+
   /* ─── RESPONSIVE ─── */
   @media (max-width: 680px) {
-    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-    .gallery-item.feature { grid-column: span 2; grid-row: span 1; aspect-ratio: 16/10; }
-    .gi-cap { opacity: 1; transform: none; }
+    .essay { gap: 3rem; }
+    .moment, .moment:nth-child(even) { grid-template-columns: 1fr; gap: 1.1rem; }
+    .moment:nth-child(even) .moment-img { order: 0; }
+    .moment-img { aspect-ratio: 3/2; }
     .cta-form { flex-direction: column; border: none; gap: 0; }
     .cta-input { border: 1px solid var(--ink); }
     .cta-submit { border: 1px solid var(--velvet); background: var(--velvet); }
@@ -1023,6 +1076,9 @@
       Không phải một đêm vinh danh.<br>Không phải lời chia tay sân khấu.<br>
       Mà là một cuộc hội ngộ của nghĩa tình.
     </p>
+    <a class="hero-cta" href="https://cphaco.vn" target="_blank" rel="noopener">
+      Tìm hiểu Hoa Viên Bình Dương <span class="arrow">→</span>
+    </a>
   </div>
 
 </section>
@@ -1129,19 +1185,32 @@
 
     <div class="artists-wrap fade-in">
       <span class="artist-tag">NSND Kim Cương</span>
-      <span class="artist-tag">NSƯT Hữu Châu</span>
       <span class="artist-tag">NSND Thanh Tuấn</span>
       <span class="artist-tag">NSND Minh Vương</span>
-      <span class="artist-tag">NSND Thanh Nam</span>
       <span class="artist-tag">NSND Thanh Điền</span>
+      <span class="artist-tag">NSND Thanh Nam</span>
       <span class="artist-tag">NSND Quế Trân</span>
+      <span class="artist-tag">NSƯT Hữu Châu</span>
       <span class="artist-tag">NSƯT Phượng Hằng</span>
       <span class="artist-tag">NSƯT Minh Minh Tâm</span>
       <span class="artist-tag">Nghệ sĩ Mộng Tuyền</span>
       <span class="artist-tag">Nghệ sĩ Mai Hằng</span>
+      <span class="artist-tag">Nghệ sĩ Tô Kim Phương</span>
+      <span class="artist-tag">Nghệ sĩ Tuấn Thanh</span>
+      <span class="artist-tag">Nghệ sĩ Bích Hạnh</span>
+      <span class="artist-tag">Nghệ sĩ Trương Hạ</span>
+      <span class="artist-tag">Nghệ sĩ Trang Tuyền</span>
       <span class="artist-tag">Danh hài Bảo Chung</span>
       <span class="artist-tag">Danh hài Dũng Nhí</span>
-      <span class="artist-tag">Tổng đạo diễn: TS-MC Lê Hữu Luân</span>
+      <span class="artist-tag">Nghệ sĩ Hoài Thanh</span>
+      <span class="artist-tag">Nghệ sĩ Đỗ Quyên</span>
+      <span class="artist-tag">Nghệ sĩ Hoài Anh Kiệt</span>
+      <span class="artist-tag artist-more">…và nhiều nghệ sĩ khác</span>
+    </div>
+
+    <div class="artists-crew fade-in">
+      <span class="crew-line">Tổng đạo diễn: <strong>TS-MC Lê Hữu Luân</strong></span>
+      <span class="crew-line">MC: <strong>Thanh Hiệp · Thủy Lam</strong></span>
     </div>
 
     <p class="artists-note fade-in">
@@ -1160,55 +1229,117 @@
       Ảnh: Ban Tổ Chức · Đêm diễn tối 22/8/2026 tại Hoa Viên Bình Dương
     </p>
 
-    <div class="gallery-grid fade-in">
-      <div class="gallery-item feature" data-full="assets/optimized/event/la-sau-rieng-1.webp" data-caption="Trích đoạn Lá Sầu Riêng — dấu ấn để đời của NSND Kim Cương">
-        <img src="assets/optimized/event/la-sau-rieng-1.webp" alt="Trích đoạn Lá Sầu Riêng" loading="lazy">
-        <div class="gi-cap">Trích đoạn <em>Lá Sầu Riêng</em></div>
-      </div>
-      <div class="gallery-item" data-full="assets/optimized/event/dsc08989.webp" data-caption="Tiết mục múa Hương Sen">
-        <img src="assets/optimized/event/dsc08989.webp" alt="Tiết mục múa Hương Sen" loading="lazy">
-        <div class="gi-cap">Múa <em>Hương Sen</em></div>
-      </div>
-      <div class="gallery-item" data-full="assets/optimized/event/nsnd-minh-vuong.webp" data-caption="Tình yêu và cát bụi — NSND Minh Vương">
-        <img src="assets/optimized/event/nsnd-minh-vuong.webp" alt="NSND Minh Vương biểu diễn Tình yêu và cát bụi" loading="lazy">
-        <div class="gi-cap"><em>Tình yêu và cát bụi</em><br>NSND Minh Vương</div>
-      </div>
-      <div class="gallery-item" data-full="assets/optimized/event/466a0471.webp" data-caption="Trích đoạn Nhụy Kiều Tướng Quân">
-        <img src="assets/optimized/event/466a0471.webp" alt="Trích đoạn Nhụy Kiều Tướng Quân" loading="lazy">
-        <div class="gi-cap">Trích đoạn <em>Nhụy Kiều Tướng Quân</em></div>
-      </div>
-      <div class="gallery-item" data-full="assets/optimized/event/nsnd-que-tran.webp" data-caption="NSND Quế Trân">
-        <img src="assets/optimized/event/nsnd-que-tran.webp" alt="NSND Quế Trân biểu diễn" loading="lazy">
-        <div class="gi-cap">NSND Quế Trân</div>
-      </div>
-      <div class="gallery-item" data-full="assets/optimized/event/466a0692.webp" data-caption="Trích đoạn Đêm lạnh chùa hoang">
-        <img src="assets/optimized/event/466a0692.webp" alt="Trích đoạn Đêm lạnh chùa hoang" loading="lazy">
-        <div class="gi-cap">Trích đoạn <em>Đêm lạnh chùa hoang</em></div>
-      </div>
-      <div class="gallery-item" data-full="assets/optimized/event/nsnd-thanh-nam.webp" data-caption="Người lính già vui vẻ — NSND Thanh Nam">
-        <img src="assets/optimized/event/nsnd-thanh-nam.webp" alt="NSND Thanh Nam biểu diễn Người lính già vui vẻ" loading="lazy">
-        <div class="gi-cap"><em>Người lính già vui vẻ</em><br>NSND Thanh Nam</div>
-      </div>
-      <div class="gallery-item" data-full="assets/optimized/event/ns-thanh-tuan-ns-phuong-hang.webp" data-caption="Cung đàn mới — NSND Thanh Tuấn, NSƯT Phượng Hằng">
-        <img src="assets/optimized/event/ns-thanh-tuan-ns-phuong-hang.webp" alt="NSND Thanh Tuấn và NSƯT Phượng Hằng biểu diễn Cung đàn mới" loading="lazy">
-        <div class="gi-cap"><em>Cung đàn mới</em><br>NSND Thanh Tuấn · NSƯT Phượng Hằng</div>
-      </div>
-      <div class="gallery-item" data-full="assets/optimized/event/nsnd-thanh-dien.webp" data-caption="Trích đoạn Mồ Em — NSND Thanh Điền">
-        <img src="assets/optimized/event/nsnd-thanh-dien.webp" alt="NSND Thanh Điền trong trích đoạn Mồ Em" loading="lazy">
-        <div class="gi-cap">Trích đoạn <em>Mồ Em</em><br>NSND Thanh Điền</div>
-      </div>
-      <div class="gallery-item" data-full="assets/optimized/event/ns-mai-hang.webp" data-caption="Bạch Thu Hà — Nghệ sĩ Mai Hằng">
-        <img src="assets/optimized/event/ns-mai-hang.webp" alt="Nghệ sĩ Mai Hằng biểu diễn Bạch Thu Hà" loading="lazy">
-        <div class="gi-cap"><em>Bạch Thu Hà</em><br>Nghệ sĩ Mai Hằng</div>
-      </div>
-      <div class="gallery-item" data-full="assets/optimized/event/466a0653.webp" data-caption="Mình ơi — Nghệ sĩ Bích Trâm">
-        <img src="assets/optimized/event/466a0653.webp" alt="Nghệ sĩ Bích Trâm biểu diễn Mình ơi" loading="lazy">
-        <div class="gi-cap"><em>Mình ơi</em><br>Nghệ sĩ Bích Trâm</div>
-      </div>
-      <div class="gallery-item" data-full="assets/optimized/event/nghe-si-tuan-thanh.webp" data-caption="Tình ấm chiều quê — Nghệ sĩ Tuấn Thanh">
-        <img src="assets/optimized/event/nghe-si-tuan-thanh.webp" alt="Nghệ sĩ Tuấn Thanh biểu diễn Tình ấm chiều quê" loading="lazy">
-        <div class="gi-cap"><em>Tình ấm chiều quê</em><br>Nghệ sĩ Tuấn Thanh</div>
-      </div>
+    <div class="essay">
+      <figure class="moment fade-in">
+        <div class="moment-img" data-full="assets/optimized/event/la-sau-rieng-1.webp" data-caption="Trích đoạn Lá Sầu Riêng — vai diễn để đời của NSND Kim Cương">
+          <img src="assets/optimized/event/la-sau-rieng-1.webp" alt="Trích đoạn Lá Sầu Riêng" loading="lazy">
+        </div>
+        <figcaption class="moment-text">
+          <span class="moment-index"></span>
+          <h3 class="moment-title">Trích đoạn Lá Sầu Riêng</h3>
+          <p class="moment-sub">Vai diễn để đời của NSND Kim Cương trở lại trên sân khấu.</p>
+        </figcaption>
+      </figure>
+      <figure class="moment fade-in">
+        <div class="moment-img" data-full="assets/optimized/event/nsnd-minh-vuong.webp" data-caption="Tình yêu và cát bụi — NSND Minh Vương">
+          <img src="assets/optimized/event/nsnd-minh-vuong.webp" alt="NSND Minh Vương biểu diễn Tình yêu và cát bụi" loading="lazy">
+        </div>
+        <figcaption class="moment-text">
+          <span class="moment-index"></span>
+          <h3 class="moment-title">Tình yêu và cát bụi</h3>
+          <p class="moment-sub">NSND Minh Vương.</p>
+        </figcaption>
+      </figure>
+      <figure class="moment fade-in">
+        <div class="moment-img" data-full="assets/optimized/event/466a0471.webp" data-caption="Trích đoạn Nhụy Kiều Tướng Quân">
+          <img src="assets/optimized/event/466a0471.webp" alt="Trích đoạn Nhụy Kiều Tướng Quân" loading="lazy">
+        </div>
+        <figcaption class="moment-text">
+          <span class="moment-index"></span>
+          <h3 class="moment-title">Trích đoạn Nhụy Kiều Tướng Quân</h3>
+          <p class="moment-sub">Khí phách nữ tướng trên sân khấu cải lương.</p>
+        </figcaption>
+      </figure>
+      <figure class="moment fade-in">
+        <div class="moment-img" data-full="assets/optimized/event/nsnd-que-tran.webp" data-caption="NSND Quế Trân — khách mời đêm tri ân">
+          <img src="assets/optimized/event/nsnd-que-tran.webp" alt="NSND Quế Trân biểu diễn" loading="lazy">
+        </div>
+        <figcaption class="moment-text">
+          <span class="moment-index"></span>
+          <h3 class="moment-title">NSND Quế Trân</h3>
+          <p class="moment-sub">Nghệ sĩ khách mời góp giọng trong đêm diễn.</p>
+        </figcaption>
+      </figure>
+      <figure class="moment fade-in">
+        <div class="moment-img" data-full="assets/optimized/event/466a0692.webp" data-caption="Trích đoạn Đêm lạnh chùa hoang">
+          <img src="assets/optimized/event/466a0692.webp" alt="Trích đoạn Đêm lạnh chùa hoang" loading="lazy">
+        </div>
+        <figcaption class="moment-text">
+          <span class="moment-index"></span>
+          <h3 class="moment-title">Trích đoạn Đêm lạnh chùa hoang</h3>
+          <p class="moment-sub">Khoảnh khắc bi tráng dưới ánh trăng.</p>
+        </figcaption>
+      </figure>
+      <figure class="moment fade-in">
+        <div class="moment-img" data-full="assets/optimized/event/nsnd-thanh-nam.webp" data-caption="Người lính già vui vẻ — NSND Thanh Nam">
+          <img src="assets/optimized/event/nsnd-thanh-nam.webp" alt="NSND Thanh Nam biểu diễn Người lính già vui vẻ" loading="lazy">
+        </div>
+        <figcaption class="moment-text">
+          <span class="moment-index"></span>
+          <h3 class="moment-title">Người lính già vui vẻ</h3>
+          <p class="moment-sub">NSND Thanh Nam.</p>
+        </figcaption>
+      </figure>
+      <figure class="moment fade-in">
+        <div class="moment-img" data-full="assets/optimized/event/ns-thanh-tuan-ns-phuong-hang.webp" data-caption="Cung đàn mới — NSND Thanh Tuấn, NSƯT Phượng Hằng">
+          <img src="assets/optimized/event/ns-thanh-tuan-ns-phuong-hang.webp" alt="NSND Thanh Tuấn và NSƯT Phượng Hằng biểu diễn Cung đàn mới" loading="lazy">
+        </div>
+        <figcaption class="moment-text">
+          <span class="moment-index"></span>
+          <h3 class="moment-title">Cung đàn mới</h3>
+          <p class="moment-sub">NSND Thanh Tuấn · NSƯT Phượng Hằng.</p>
+        </figcaption>
+      </figure>
+      <figure class="moment fade-in">
+        <div class="moment-img" data-full="assets/optimized/event/nsnd-thanh-dien.webp" data-caption="Trích đoạn Mồ Em — NSND Thanh Điền">
+          <img src="assets/optimized/event/nsnd-thanh-dien.webp" alt="NSND Thanh Điền trong trích đoạn Mồ Em" loading="lazy">
+        </div>
+        <figcaption class="moment-text">
+          <span class="moment-index"></span>
+          <h3 class="moment-title">Trích đoạn Mồ Em</h3>
+          <p class="moment-sub">NSND Thanh Điền.</p>
+        </figcaption>
+      </figure>
+      <figure class="moment fade-in">
+        <div class="moment-img" data-full="assets/optimized/event/ns-mai-hang.webp" data-caption="Bạch Thu Hà — Nghệ sĩ Mai Hằng">
+          <img src="assets/optimized/event/ns-mai-hang.webp" alt="Nghệ sĩ Mai Hằng biểu diễn Bạch Thu Hà" loading="lazy">
+        </div>
+        <figcaption class="moment-text">
+          <span class="moment-index"></span>
+          <h3 class="moment-title">Bạch Thu Hà</h3>
+          <p class="moment-sub">Nghệ sĩ Mai Hằng.</p>
+        </figcaption>
+      </figure>
+      <figure class="moment fade-in">
+        <div class="moment-img" data-full="assets/optimized/event/466a0653.webp" data-caption="Mình ơi — Nghệ sĩ Bích Trâm">
+          <img src="assets/optimized/event/466a0653.webp" alt="Nghệ sĩ Bích Trâm biểu diễn Mình ơi" loading="lazy">
+        </div>
+        <figcaption class="moment-text">
+          <span class="moment-index"></span>
+          <h3 class="moment-title">Mình ơi</h3>
+          <p class="moment-sub">Nghệ sĩ Bích Trâm.</p>
+        </figcaption>
+      </figure>
+      <figure class="moment fade-in">
+        <div class="moment-img" data-full="assets/optimized/event/nghe-si-tuan-thanh.webp" data-caption="Tình ấm chiều quê — Nghệ sĩ Tuấn Thanh">
+          <img src="assets/optimized/event/nghe-si-tuan-thanh.webp" alt="Nghệ sĩ Tuấn Thanh biểu diễn Tình ấm chiều quê" loading="lazy">
+        </div>
+        <figcaption class="moment-text">
+          <span class="moment-index"></span>
+          <h3 class="moment-title">Tình ấm chiều quê</h3>
+          <p class="moment-sub">Nghệ sĩ Tuấn Thanh.</p>
+        </figcaption>
+      </figure>
     </div>
 
     <div class="gallery-cta-wrap fade-in">
@@ -1319,7 +1450,7 @@
       <a href="tel:+84818555444" class="cta-social">Gọi 0818 555 444</a>
     </div>
 
-    <p class="cta-small fade-in">Hoa Viên Bình Dương, Khu phố Bông Trang, phường Chánh Phú Hòa</p>
+    <p class="cta-small fade-in">Hoa Viên Bình Dương, Khu phố Bông Trang, Phường Chánh Phú Hòa, TP. Hồ Chí Minh</p>
   </div>
 </section>
 
@@ -1330,7 +1461,7 @@
   <div class="footer-logo">HOA VIÊN BÌNH DƯƠNG</div>
   <p class="footer-address">
     Công ty CP Đầu tư Xây dựng Chánh Phú Hòa · CPHACO<br>
-    Khu phố Bông Trang, phường Chánh Phú Hòa, TP. Thuận An, Bình Dương
+    Khu phố Bông Trang, Phường Chánh Phú Hòa, TP. Hồ Chí Minh
   </p>
   <div class="footer-hotline">0818 555 444</div>
   <div style="width:40px; height:1px; background:rgba(138,106,28,0.4); margin:1.5rem auto;"></div>
@@ -1366,7 +1497,7 @@
 
   // Lightbox thư viện ảnh
   (function () {
-    var items = Array.prototype.slice.call(document.querySelectorAll('.gallery-item[data-full]'));
+    var items = Array.prototype.slice.call(document.querySelectorAll('.moment-img[data-full]'));
     if (!items.length) return;
     var lb = document.getElementById('lightbox');
     var lbImg = document.getElementById('lb-img');
