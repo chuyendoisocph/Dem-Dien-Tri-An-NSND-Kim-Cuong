@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nhìn lại Đêm Diễn Tri Ân NSND Kim Cương | Hoa Viên Bình Dương</title>
 <meta name="description" content="Nhìn lại Đêm Diễn Tri Ân Khán Giả của NSND Kim Cương tại Hoa Viên Bình Dương, 22/08/2026: câu chuyện, khoảnh khắc, thư viện ảnh, báo chí và video.">
-<meta name="theme-color" content="#F5EDD8">
+<meta name="theme-color" content="#0E0C0A">
 <link rel="canonical" href="https://demdientrian.cphaco.vn/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="vi_VN">
@@ -23,14 +23,16 @@
 <style>
   :root {
     --ink: #0E0C0A;
-    --gold: #C9A84C;
-    --gold-light: #E8CC80;
+    --gold: #C9A84C;          /* gold trên nền TỐI */
+    --gold-light: #E8CC80;    /* gold sáng trên nền tối */
+    --gold-ink: #7C5B1D;      /* vàng cổ trên nền SÁNG (đạt AA) */
     --cream: #F5EDD8;
     --cream-dark: #EDE0C4;
-    --velvet: #6B1A1A;
-    --velvet-light: #8B2525;
+    --velvet: #741F25;
+    --velvet-light: #8B2A30;
     --mist: #2A2420;
     --body-text: #3A342C;
+    --secondary: #6F6256;     /* chữ phụ trên nền sáng (AA) */
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -123,12 +125,13 @@
 
   .hero-title {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(2.8rem, 8vw, 7rem);
+    font-size: clamp(2.5rem, 7.5vw, 6.2rem);
     font-weight: 900;
-    line-height: 0.95;
+    line-height: 1.02;
     color: var(--ink);
     text-shadow: 0 1px 0 rgba(255,255,255,0.5);
     margin-bottom: 0.3rem;
+    text-wrap: balance;
   }
 
   .hero-title-accent {
@@ -165,7 +168,7 @@
 
   .scroll-cue {
     position: absolute;
-    bottom: 2.5rem;
+    bottom: 2.2rem;
     left: 50%;
     transform: translateX(-50%);
     z-index: 4;
@@ -173,17 +176,19 @@
     flex-direction: column;
     align-items: center;
     gap: 0.5rem;
+    text-decoration: none;
     opacity: 0;
-    transition: opacity 1s ease 1.5s;
+    animation: cueReveal 1s ease 1.4s forwards;
   }
-  .curtain-open .scroll-cue { opacity: 1; }
+  @keyframes cueReveal { to { opacity: 1; } }
   .scroll-cue span {
     font-size: 0.6rem;
     letter-spacing: 0.25em;
     text-transform: uppercase;
-    color: var(--gold);
-    opacity: 0.6;
+    color: var(--gold-light);
+    opacity: 0.7;
   }
+  @media (prefers-reduced-motion: reduce) { .scroll-cue { display: none; } }
   .scroll-arrow {
     width: 20px;
     height: 20px;
@@ -223,6 +228,7 @@
     max-width: 900px;
     margin: 0 auto;
   }
+  .section-story .container { max-width: 720px; }
 
   .section-label {
     font-family: 'Inter', sans-serif;
@@ -293,74 +299,70 @@
     font-style: normal;
   }
 
-  /* ─── HIGHLIGHTS ─── */
+  /* ─── ĐIỂM NHẤN (chương tối, đánh số editorial) ─── */
   .section-highlights {
-    background: var(--ink);
+    background: linear-gradient(180deg, #1c0f11 0%, #2a1216 55%, #1a0d0e 100%);
     padding: 6rem 2rem;
     position: relative;
   }
 
-  .section-highlights .section-label { color: var(--gold); }
-  .section-highlights .section-label::after { background: var(--gold); }
+  .section-highlights .section-label { color: var(--gold-light); }
+  .section-highlights .section-label::after { background: var(--gold-light); }
   .section-highlights .section-title { color: var(--cream); }
 
   .highlights-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5px;
-    margin-top: 3rem;
-    background: rgba(201,168,76,0.15);
-    border: 1px solid rgba(201,168,76,0.15);
+    margin: 3.2rem auto 0;
+    max-width: 780px;
+    display: flex;
+    flex-direction: column;
+    gap: 2.4rem;
+    counter-reset: hl;
   }
-
-  .highlight-card {
-    background: var(--mist);
-    padding: 2.2rem;
-    position: relative;
-    overflow: hidden;
-    transition: background 0.3s ease;
+  .hl-point {
+    counter-increment: hl;
     display: grid;
-    grid-template-columns: auto 1fr;
-    column-gap: 1.5rem;
-    align-content: center;
+    grid-template-columns: 4rem 1fr;
+    column-gap: 1.8rem;
+    align-items: baseline;
+    padding-bottom: 2.4rem;
+    border-bottom: 1px solid rgba(232,204,128,0.16);
   }
-
-  .highlight-card:hover { background: #312B25; }
-
-  .highlight-number {
-    font-family: 'Playfair Display', serif;
-    font-size: 3.4rem;
-    font-weight: 900;
-    color: var(--gold);
-    opacity: 0.42;
-    line-height: 1;
-    display: block;
+  .hl-point:last-child { border-bottom: none; padding-bottom: 0; }
+  .hl-point::before {
+    content: counter(hl, decimal-leading-zero);
     grid-column: 1;
     grid-row: 1 / 3;
-    align-self: center;
-  }
-  .highlight-title { grid-column: 2; }
-  .highlight-desc { grid-column: 2; }
-
-  .highlight-icon {
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
-    display: block;
-  }
-
-  .highlight-title {
+    align-self: start;
     font-family: 'Playfair Display', serif;
-    font-size: 1.1rem;
+    font-size: 2.1rem;
+    font-weight: 700;
+    color: var(--gold-light);
+    opacity: 0.9;
+    line-height: 1;
+  }
+  .hl-h {
+    grid-column: 2;
+    grid-row: 1;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.3rem, 2.5vw, 1.7rem);
     font-weight: 700;
     color: var(--cream);
-    margin-bottom: 0.6rem;
-    line-height: 1.3;
+    line-height: 1.25;
+    margin-bottom: 0.5rem;
   }
-
-  .highlight-desc {
-    font-size: 0.88rem;
-    line-height: 1.7;
-    color: #9A8E82;
+  .hl-p {
+    grid-column: 2;
+    grid-row: 2;
+    font-family: 'EB Garamond', serif;
+    font-size: 1.06rem;
+    line-height: 1.65;
+    color: rgba(245,237,216,0.74);
+    font-style: italic;
+    max-width: 48ch;
+  }
+  @media (max-width: 680px) {
+    .hl-point { grid-template-columns: 2.6rem 1fr; column-gap: 1rem; padding-bottom: 2rem; }
+    .hl-point::before { font-size: 1.6rem; }
   }
 
   /* ─── ARTISTS ─── */
@@ -396,18 +398,11 @@
     padding: 0.4rem 1rem;
     border: 1px solid rgba(245,237,216,0.3);
     color: var(--cream-dark);
-    transition: all 0.2s ease;
     line-height: 1.4;
-    cursor: default;
-  }
-  .artist-tag:hover {
-    border-color: var(--gold);
-    color: var(--gold-light);
   }
   .artist-tag.featured {
     border-color: var(--gold);
     color: var(--gold-light);
-    background: rgba(201,168,76,0.1);
     font-weight: 500;
   }
 
@@ -416,6 +411,55 @@
     font-size: 0.8rem;
     color: rgba(245,237,216,0.5);
     font-style: italic;
+  }
+
+  /* ─── CREDITS NGHỆ SĨ ─── */
+  .artists-sub {
+    font-family: 'EB Garamond', serif; font-style: italic;
+    font-size: 0.95rem; color: var(--secondary); margin-bottom: 0.5rem;
+  }
+  .credits { margin-top: 2.6rem; max-width: 760px; }
+  .credits-lead-role, .credits-group-label {
+    font-family: 'Inter', sans-serif; font-size: 0.66rem;
+    font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--velvet);
+  }
+  .credits-lead-role { margin-bottom: 0.5rem; }
+  .credits-lead {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5.5vw, 3.2rem); font-weight: 700;
+    color: var(--ink); line-height: 1.04;
+  }
+  .credits-group-label { margin: 2.8rem 0 1.2rem; }
+  .credits-names {
+    column-width: 210px; column-gap: 2.6rem;
+    font-family: 'EB Garamond', serif; font-size: 1.06rem;
+    color: var(--body-text); margin: 0; padding: 0;
+  }
+  .credits-names li {
+    list-style: none; break-inside: avoid;
+    padding: 0.3rem 0; line-height: 1.4;
+    border-bottom: 1px solid rgba(116,31,37,0.12);
+  }
+  .credits-names li.more {
+    color: var(--secondary); font-style: italic; border-bottom: none;
+  }
+  .credits .artists-crew { margin-top: 2.4rem; }
+  .credits .crew-line { color: var(--secondary); }
+  .credits .crew-line strong { color: var(--ink); }
+  .artists-memoriam {
+    margin-top: 2.6rem; padding-top: 1.6rem;
+    border-top: 1px solid rgba(116,31,37,0.2);
+    max-width: 760px;
+  }
+  .memoriam-label {
+    font-family: 'Inter', sans-serif; font-size: 0.64rem;
+    font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--velvet); margin-bottom: 0.6rem;
+  }
+  .memoriam-names {
+    font-family: 'EB Garamond', serif; font-style: italic;
+    font-size: 0.98rem; line-height: 1.7; color: var(--secondary);
   }
 
   /* ─── GALLERY ─── */
@@ -518,8 +562,10 @@
     align-items: center;
     justify-content: center;
     padding: 4vh 4vw;
+    overscroll-behavior: contain;
   }
   .lightbox.open { display: flex; }
+  .lb-close, .lb-prev, .lb-next { min-width: 44px; min-height: 44px; }
   .lightbox img {
     max-width: 100%;
     max-height: 82vh;
@@ -570,7 +616,7 @@
     letter-spacing: 0.2em;
     text-transform: uppercase;
     text-decoration: none;
-    transition: all 0.2s ease;
+    transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
   }
   .btn-outline-dark:hover {
     background: var(--ink);
@@ -747,7 +793,7 @@
     justify-content: center;
     color: var(--gold);
     font-size: 1.3rem;
-    transition: all 0.2s ease;
+    transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
   }
   .video-card:hover .play-btn {
     background: var(--gold);
@@ -896,7 +942,7 @@
     text-decoration: none;
     padding: 0.6rem 1.2rem;
     border: 1px solid rgba(14,12,10,0.2);
-    transition: all 0.2s ease;
+    transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
   }
   .cta-social:hover {
     border-color: var(--ink);
@@ -961,6 +1007,32 @@
     }
   }
 
+  /* ─── ACCESSIBILITY + CHƯƠNG (nav) ─── */
+  .skip-link {
+    position: absolute; left: 8px; top: -60px; z-index: 1000;
+    background: var(--ink); color: var(--cream);
+    padding: 0.7rem 1.2rem; font-family: 'Inter', sans-serif;
+    font-size: 0.8rem; letter-spacing: 0.04em; text-decoration: none;
+    border: 1px solid var(--gold-light);
+    transition: top 0.2s ease;
+  }
+  .skip-link:focus { top: 8px; }
+
+  a:focus-visible, button:focus-visible, [tabindex]:focus-visible,
+  input:focus-visible, iframe:focus-visible {
+    outline: 2px solid var(--gold-light);
+    outline-offset: 3px;
+  }
+  .section-story a:focus-visible, .section-gallery a:focus-visible,
+  .section-gallery [tabindex]:focus-visible,
+  .section-cta a:focus-visible, .section-cta button:focus-visible,
+  .section-cta input:focus-visible, footer a:focus-visible {
+    outline-color: var(--velvet);
+  }
+  .cta-input:focus { outline: 2px solid var(--velvet); outline-offset: 2px; }
+
+  #cau-chuyen, #highlight, #nghe-si, #thu-vien-anh, #bao-chi, #video { scroll-margin-top: 12px; }
+
   /* ─── SÁNG HÓA phần thân (giảm cảm giác quá tối; hero + footer vẫn tối) ─── */
   .is-light { background: var(--cream); }
   .is-light.section-highlights { background: var(--cream-dark); }
@@ -969,18 +1041,16 @@
   .is-light .section-label::after { background: var(--velvet); }
   .is-light .section-title { color: var(--ink); }
 
-  .is-light .highlights-grid { background: rgba(201,168,76,0.42); border-color: rgba(201,168,76,0.42); }
-  .is-light .highlight-card { background: #FBF6E9; }
-  .is-light .highlight-card:hover { background: #FFFDF6; }
-  .is-light .highlight-number { color: #9E7A24; opacity: 0.6; }
+  .is-light .highlights-grid { background: transparent; border-top-color: rgba(158,122,36,0.32); }
+  .is-light .highlight-card { background: transparent; border-bottom-color: rgba(158,122,36,0.3); }
+  .is-light .highlight-number { color: #9E7A24; opacity: 0.9; }
   .is-light .highlight-title { color: var(--ink); }
   .is-light .highlight-desc { color: #6A5E52; }
 
   .is-light.section-artists { background: linear-gradient(180deg, #F1E7D0 0%, #EADCC0 100%); }
   .is-light.section-artists::before { opacity: 0.5; }
   .is-light .artist-tag { color: var(--body-text); border-color: rgba(14,12,10,0.22); }
-  .is-light .artist-tag:hover { border-color: var(--velvet); color: var(--velvet); }
-  .is-light .artist-tag.featured { border-color: var(--velvet); color: var(--velvet); background: rgba(107,26,26,0.08); }
+  .is-light .artist-tag.featured { border: 1.5px solid var(--velvet); color: var(--velvet); background: rgba(116,31,37,0.06); font-weight: 600; }
   .is-light .artists-note { color: rgba(58,52,44,0.72); }
   .is-light .artist-tag.artist-more { border-color: transparent; font-style: italic; color: #8A7E70; }
   .artists-crew { margin-top: 1.6rem; display: flex; flex-direction: column; gap: 0.4rem; }
@@ -1048,17 +1118,25 @@
     .cta-form { flex-direction: column; border: none; gap: 0; }
     .cta-input { border: 1px solid var(--ink); }
     .cta-submit { border: 1px solid var(--velvet); background: var(--velvet); }
-    .highlights-grid { grid-template-columns: 1fr; }
-    .highlights-grid .highlight-card:first-child { grid-column: auto; grid-row: auto; }
+    .highlights-grid { gap: 2.4rem; }
+    .highlight-card, .highlight-card:nth-child(even) { grid-template-columns: 1fr; max-width: 100%; align-self: stretch; text-align: left; row-gap: 0.4rem; }
+    .highlight-number, .highlight-card:nth-child(even) .highlight-number { grid-column: 1; grid-row: auto; font-size: 2.7rem; }
+    .highlight-title, .highlight-desc,
+    .highlight-card:nth-child(even) .highlight-title, .highlight-card:nth-child(even) .highlight-desc { grid-column: 1; grid-row: auto; }
     .video-grid { grid-template-columns: 1fr; }
     .press-grid { grid-template-columns: 1fr; }
+    .hero-cta { font-size: 0.62rem; letter-spacing: 0.14em; padding: 0.7rem 1.3rem; gap: 0.45rem; }
   }
 </style>
 </head>
 <body>
 
+<a class="skip-link" href="#cau-chuyen">Bỏ qua đến nội dung chính</a>
+
+<main id="noi-dung">
+
 <!-- ═══════════════════════════════════════ -->
-<!-- HERO – CURTAIN REVEAL                   -->
+<!-- HERO - anh nen La Sau Rieng -->
 <!-- ═══════════════════════════════════════ -->
 <section class="hero" id="hero">
   <div class="stage-light"></div>
@@ -1081,6 +1159,10 @@
     </a>
   </div>
 
+  <a class="scroll-cue" href="#cau-chuyen" aria-label="Cuộn xuống câu chuyện">
+    <span>Cuộn</span>
+    <span class="scroll-arrow" aria-hidden="true"></span>
+  </a>
 </section>
 
 <!-- ═══════════════════════════════════════ -->
@@ -1129,45 +1211,34 @@
 <!-- ═══════════════════════════════════════ -->
 <!-- HIGHLIGHTS                              -->
 <!-- ═══════════════════════════════════════ -->
-<section class="section-highlights is-light" id="highlight">
+<section class="section-highlights" id="highlight">
   <div class="container">
     <h2 class="section-title fade-in">Một đêm, vạn tấm lòng</h2>
 
     <div class="highlights-grid">
-      <div class="highlight-card fade-in">
-        <span class="highlight-number">70+</span>
-        <div class="highlight-title">Hơn 70 năm nghệ thuật, một lời cảm ơn</div>
-        <p class="highlight-desc">NSND Kim Cương trở lại sân khấu không phải để nhận thêm danh hiệu, mà để cúi đầu trước những người đã làm nên cuộc đời bà.</p>
+      <div class="hl-point fade-in">
+        <h3 class="hl-h">Một lời cảm ơn sau hơn bảy mươi năm</h3>
+        <p class="hl-p">NSND Kim Cương trở lại sân khấu không để nhận thêm danh hiệu, mà để cúi đầu trước những khán giả đã làm nên cuộc đời bà.</p>
       </div>
 
-      <div class="highlight-card fade-in">
-        <span class="highlight-number">40</span>
-        <div class="highlight-title">40 năm duyên sân khấu: Hữu Châu và Kim Cương</div>
-        <p class="highlight-desc">Màn tái hiện đoạn cuối <em>Lá Sầu Riêng</em> với NSƯT Hữu Châu khiến cả sân khấu và khán phòng đều rưng rưng xúc động.</p>
+      <div class="hl-point fade-in">
+        <h3 class="hl-h">Tri ân cả hai bờ âm dương</h3>
+        <p class="hl-p">Đúng mùa Vu Lan, đêm diễn hướng về những khán giả đang hiện diện và tưởng nhớ các nghệ sĩ tài hoa đã đi xa như NSƯT Vũ Linh, nhạc sĩ Nguyễn Văn Tý, GS Trần Văn Khê.</p>
       </div>
 
-      <div class="highlight-card fade-in">
-        <span class="highlight-number">∞</span>
-        <div class="highlight-title">Mùa Vu Lan, tri ân cả hai bờ âm dương</div>
-        <p class="highlight-desc">Đêm diễn không chỉ hướng đến những khán giả còn đó, mà còn tưởng nhớ những nghệ sĩ đã đi xa như NSƯT Vũ Linh, nhạc sĩ Nguyễn Văn Tý, GS Trần Văn Khê.</p>
+      <div class="hl-point fade-in">
+        <h3 class="hl-h">Trọn vẹn các thể loại sân khấu Nam Bộ</h3>
+        <p class="hl-p">Một chương trình miễn phí kéo dài ba giờ, từ cải lương <em>Tây Thi</em>, <em>Người tình trên chiến trận</em> đến kịch nói <em>Lá Sầu Riêng</em>.</p>
       </div>
 
-      <div class="highlight-card fade-in">
-        <span class="highlight-number">3h</span>
-        <div class="highlight-title">Chương trình nghệ thuật kéo dài 3 giờ, miễn phí</div>
-        <p class="highlight-desc">Từ cải lương <em>Tây Thi</em>, <em>Người tình trên chiến trận</em>, đến kịch nói <em>Lá Sầu Riêng</em>, một đêm hội đủ các thể loại sân khấu Nam Bộ.</p>
+      <div class="hl-point fade-in">
+        <h3 class="hl-h">Nơi nhiều thế hệ nghệ sĩ hội tụ</h3>
+        <p class="hl-p">NSND Thanh Tuấn, NSND Minh Vương, NSND Quế Trân, NSƯT Phượng Hằng, danh hài Bảo Chung, Dũng Nhí cùng nhiều nghệ sĩ thế hệ sau.</p>
       </div>
 
-      <div class="highlight-card fade-in">
-        <span class="highlight-number">12+</span>
-        <div class="highlight-title">Hội tụ nhiều thế hệ nghệ sĩ gạo cội</div>
-        <p class="highlight-desc">NSND Thanh Tuấn, NSND Minh Vương, NSND Quế Trân, NSƯT Phượng Hằng, danh hài Bảo Chung, Dũng Nhí cùng nhiều nghệ sĩ thế hệ trẻ.</p>
-      </div>
-
-      <div class="highlight-card fade-in">
-        <span class="highlight-number">◇</span>
-        <div class="highlight-title">Hoa Viên Bình Dương, nơi của nghĩa tình</div>
-        <p class="highlight-desc">Duyên kỳ ngộ giữa Hoa Viên Bình Dương và NSND Kim Cương bắt đầu từ những chia sẻ, đồng hành cùng các nghệ sĩ lớn tuổi, đau yếu.</p>
+      <div class="hl-point fade-in">
+        <h3 class="hl-h">Hoa Viên Bình Dương, nơi của nghĩa tình</h3>
+        <p class="hl-p">Duyên giữa Hoa Viên Bình Dương và NSND Kim Cương bắt đầu từ sự đồng hành cùng các nghệ sĩ lớn tuổi, đau yếu.</p>
       </div>
     </div>
   </div>
@@ -1179,12 +1250,10 @@
 <section class="section-artists is-light" id="nghe-si">
   <div class="container">
     <h2 class="section-title fade-in">Những tên tuổi của sân khấu Việt</h2>
-    <p style="color:#7A6E62; font-size:0.9rem; margin-bottom:1.5rem; font-style:italic;" class="fade-in">
-      Tối 22/8/2026 · Hoa Viên Bình Dương
-    </p>
+    <p class="artists-sub fade-in">Tối 22.8.2026 · Hoa Viên Bình Dương</p>
 
     <div class="artists-wrap fade-in">
-      <span class="artist-tag">NSND Kim Cương</span>
+      <span class="artist-tag featured">NSND Kim Cương</span>
       <span class="artist-tag">NSND Thanh Tuấn</span>
       <span class="artist-tag">NSND Minh Vương</span>
       <span class="artist-tag">NSND Thanh Điền</span>
@@ -1213,9 +1282,10 @@
       <span class="crew-line">MC: <strong>Thanh Hiệp · Thủy Lam</strong></span>
     </div>
 
-    <p class="artists-note fade-in">
-      Tri ân những nghệ sĩ đã đi xa: NSƯT Vũ Linh, nhà văn Sơn Nam, đạo diễn Huỳnh Phúc Điền, NSƯT Diên Châu, nhạc sĩ Nguyễn Văn Tý, GS Trần Văn Khê, nghệ sĩ Giang Châu…
-    </p>
+    <div class="artists-memoriam fade-in">
+      <p class="memoriam-label">Tưởng nhớ những nghệ sĩ đã đi xa</p>
+      <p class="memoriam-names">NSƯT Vũ Linh, nhà văn Sơn Nam, đạo diễn Huỳnh Phúc Điền, NSƯT Diên Châu, nhạc sĩ Nguyễn Văn Tý, GS Trần Văn Khê, nghệ sĩ Giang Châu…</p>
+    </div>
   </div>
 </section>
 
@@ -1231,7 +1301,7 @@
 
     <div class="essay">
       <figure class="moment fade-in">
-        <div class="moment-img" data-full="assets/optimized/event/la-sau-rieng-1.webp" data-caption="Trích đoạn Lá Sầu Riêng — vai diễn để đời của NSND Kim Cương">
+        <div class="moment-img" data-full="assets/optimized/event/la-sau-rieng-1.webp" data-caption="Trích đoạn Lá Sầu Riêng · vai diễn để đời của NSND Kim Cương">
           <img src="assets/optimized/event/la-sau-rieng-1.webp" alt="Trích đoạn Lá Sầu Riêng" loading="lazy">
         </div>
         <figcaption class="moment-text">
@@ -1241,7 +1311,7 @@
         </figcaption>
       </figure>
       <figure class="moment fade-in">
-        <div class="moment-img" data-full="assets/optimized/event/nsnd-minh-vuong.webp" data-caption="Tình yêu và cát bụi — NSND Minh Vương">
+        <div class="moment-img" data-full="assets/optimized/event/nsnd-minh-vuong.webp" data-caption="Tình yêu và cát bụi · NSND Minh Vương">
           <img src="assets/optimized/event/nsnd-minh-vuong.webp" alt="NSND Minh Vương biểu diễn Tình yêu và cát bụi" loading="lazy">
         </div>
         <figcaption class="moment-text">
@@ -1261,7 +1331,7 @@
         </figcaption>
       </figure>
       <figure class="moment fade-in">
-        <div class="moment-img" data-full="assets/optimized/event/nsnd-que-tran.webp" data-caption="NSND Quế Trân — khách mời đêm tri ân">
+        <div class="moment-img" data-full="assets/optimized/event/nsnd-que-tran.webp" data-caption="NSND Quế Trân · khách mời đêm tri ân">
           <img src="assets/optimized/event/nsnd-que-tran.webp" alt="NSND Quế Trân biểu diễn" loading="lazy">
         </div>
         <figcaption class="moment-text">
@@ -1271,8 +1341,8 @@
         </figcaption>
       </figure>
       <figure class="moment fade-in">
-        <div class="moment-img" data-full="assets/optimized/event/466a0692.webp" data-caption="Trích đoạn Đêm lạnh chùa hoang">
-          <img src="assets/optimized/event/466a0692.webp" alt="Trích đoạn Đêm lạnh chùa hoang" loading="lazy">
+        <div class="moment-img" data-full="assets/optimized/event/466a0703.webp" data-caption="Trích đoạn Đêm lạnh chùa hoang">
+          <img src="assets/optimized/event/466a0703.webp" alt="Trích đoạn Đêm lạnh chùa hoang" loading="lazy">
         </div>
         <figcaption class="moment-text">
           <span class="moment-index"></span>
@@ -1281,7 +1351,7 @@
         </figcaption>
       </figure>
       <figure class="moment fade-in">
-        <div class="moment-img" data-full="assets/optimized/event/nsnd-thanh-nam.webp" data-caption="Người lính già vui vẻ — NSND Thanh Nam">
+        <div class="moment-img" data-full="assets/optimized/event/nsnd-thanh-nam.webp" data-caption="Người lính già vui vẻ · NSND Thanh Nam">
           <img src="assets/optimized/event/nsnd-thanh-nam.webp" alt="NSND Thanh Nam biểu diễn Người lính già vui vẻ" loading="lazy">
         </div>
         <figcaption class="moment-text">
@@ -1291,7 +1361,7 @@
         </figcaption>
       </figure>
       <figure class="moment fade-in">
-        <div class="moment-img" data-full="assets/optimized/event/ns-thanh-tuan-ns-phuong-hang.webp" data-caption="Cung đàn mới — NSND Thanh Tuấn, NSƯT Phượng Hằng">
+        <div class="moment-img" data-full="assets/optimized/event/ns-thanh-tuan-ns-phuong-hang.webp" data-caption="Cung đàn mới · NSND Thanh Tuấn, NSƯT Phượng Hằng">
           <img src="assets/optimized/event/ns-thanh-tuan-ns-phuong-hang.webp" alt="NSND Thanh Tuấn và NSƯT Phượng Hằng biểu diễn Cung đàn mới" loading="lazy">
         </div>
         <figcaption class="moment-text">
@@ -1301,7 +1371,7 @@
         </figcaption>
       </figure>
       <figure class="moment fade-in">
-        <div class="moment-img" data-full="assets/optimized/event/nsnd-thanh-dien.webp" data-caption="Trích đoạn Mồ Em — NSND Thanh Điền">
+        <div class="moment-img" data-full="assets/optimized/event/nsnd-thanh-dien.webp" data-caption="Trích đoạn Mồ Em · NSND Thanh Điền">
           <img src="assets/optimized/event/nsnd-thanh-dien.webp" alt="NSND Thanh Điền trong trích đoạn Mồ Em" loading="lazy">
         </div>
         <figcaption class="moment-text">
@@ -1311,7 +1381,7 @@
         </figcaption>
       </figure>
       <figure class="moment fade-in">
-        <div class="moment-img" data-full="assets/optimized/event/ns-mai-hang.webp" data-caption="Bạch Thu Hà — Nghệ sĩ Mai Hằng">
+        <div class="moment-img" data-full="assets/optimized/event/ns-mai-hang.webp" data-caption="Bạch Thu Hà · Nghệ sĩ Mai Hằng">
           <img src="assets/optimized/event/ns-mai-hang.webp" alt="Nghệ sĩ Mai Hằng biểu diễn Bạch Thu Hà" loading="lazy">
         </div>
         <figcaption class="moment-text">
@@ -1321,7 +1391,7 @@
         </figcaption>
       </figure>
       <figure class="moment fade-in">
-        <div class="moment-img" data-full="assets/optimized/event/466a0653.webp" data-caption="Mình ơi — Nghệ sĩ Bích Trâm">
+        <div class="moment-img" data-full="assets/optimized/event/466a0653.webp" data-caption="Mình ơi · Nghệ sĩ Bích Trâm">
           <img src="assets/optimized/event/466a0653.webp" alt="Nghệ sĩ Bích Trâm biểu diễn Mình ơi" loading="lazy">
         </div>
         <figcaption class="moment-text">
@@ -1331,7 +1401,7 @@
         </figcaption>
       </figure>
       <figure class="moment fade-in">
-        <div class="moment-img" data-full="assets/optimized/event/nghe-si-tuan-thanh.webp" data-caption="Tình ấm chiều quê — Nghệ sĩ Tuấn Thanh">
+        <div class="moment-img" data-full="assets/optimized/event/nghe-si-tuan-thanh.webp" data-caption="Tình ấm chiều quê · Nghệ sĩ Tuấn Thanh">
           <img src="assets/optimized/event/nghe-si-tuan-thanh.webp" alt="Nghệ sĩ Tuấn Thanh biểu diễn Tình ấm chiều quê" loading="lazy">
         </div>
         <figcaption class="moment-text">
@@ -1346,7 +1416,7 @@
       <p style="font-size:0.82rem; color:#7A6E62; margin-bottom:1rem; font-style:italic;">
         · Chạm vào ảnh để xem cỡ lớn ·
       </p>
-      <a href="https://www.facebook.com/hoavienbinhduong" target="_blank" rel="noopener" class="btn-outline-dark">
+      <a href="https://www.facebook.com/cphacobd.vn" target="_blank" rel="noopener" class="btn-outline-dark">
         Xem thêm ảnh trên Facebook
       </a>
     </div>
@@ -1444,15 +1514,17 @@
     </p>
 
     <div class="cta-options fade-in">
-      <a href="https://www.facebook.com/hoavienbinhduong" target="_blank" rel="noopener" class="cta-social">Facebook</a>
-      <a href="https://www.youtube.com/@HoaVienBinhDuong" target="_blank" rel="noopener" class="cta-social">YouTube</a>
+      <a href="https://www.facebook.com/cphacobd.vn" target="_blank" rel="noopener" class="cta-social">Facebook</a>
+      <a href="https://www.youtube.com/@hoavienbinhduong1276/videos" target="_blank" rel="noopener" class="cta-social">YouTube</a>
       <a href="https://cphaco.vn" target="_blank" rel="noopener" class="cta-social">cphaco.vn</a>
-      <a href="tel:+84818555444" class="cta-social">Gọi 0818 555 444</a>
+      <a href="tel:+84869555444" class="cta-social">Gọi 0869 555 444</a>
     </div>
 
     <p class="cta-small fade-in">Hoa Viên Bình Dương, Khu phố Bông Trang, Phường Chánh Phú Hòa, TP. Hồ Chí Minh</p>
   </div>
 </section>
+
+</main>
 
 <!-- ═══════════════════════════════════════ -->
 <!-- FOOTER                                  -->
@@ -1463,7 +1535,7 @@
     Công ty CP Đầu tư Xây dựng Chánh Phú Hòa · CPHACO<br>
     Khu phố Bông Trang, Phường Chánh Phú Hòa, TP. Hồ Chí Minh
   </p>
-  <div class="footer-hotline">0818 555 444</div>
+  <div class="footer-hotline">0869 555 444</div>
   <div style="width:40px; height:1px; background:rgba(138,106,28,0.4); margin:1.5rem auto;"></div>
   <p style="font-size:0.65rem; color:#8A7E70; letter-spacing:0.12em;">
     © 2026 CPHACO - Hoa Viên Bình Dương. Trang hậu sự kiện "Đêm Diễn Tri Ân NSND Kim Cương".
@@ -1471,7 +1543,7 @@
 </footer>
 
 <!-- Lightbox thư viện ảnh -->
-<div class="lightbox" id="lightbox" aria-hidden="true">
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Ảnh đêm diễn" aria-hidden="true">
   <button class="lb-close" id="lb-close" aria-label="Đóng">&times;</button>
   <button class="lb-prev" id="lb-prev" aria-label="Ảnh trước">&#8249;</button>
   <button class="lb-next" id="lb-next" aria-label="Ảnh sau">&#8250;</button>
@@ -1495,14 +1567,18 @@
     fades.forEach(function (el) { observer.observe(el); });
   }
 
-  // Lightbox thư viện ảnh
+  // Lightbox thư viện ảnh (a11y: dialog, focus trap, trả focus)
   (function () {
     var items = Array.prototype.slice.call(document.querySelectorAll('.moment-img[data-full]'));
     if (!items.length) return;
     var lb = document.getElementById('lightbox');
     var lbImg = document.getElementById('lb-img');
     var lbCap = document.getElementById('lb-cap');
-    var idx = 0;
+    var btnClose = document.getElementById('lb-close');
+    var btnPrev = document.getElementById('lb-prev');
+    var btnNext = document.getElementById('lb-next');
+    var focusables = [btnClose, btnPrev, btnNext];
+    var idx = 0, opener = null;
     function show(i) {
       idx = (i + items.length) % items.length;
       var el = items[idx];
@@ -1510,26 +1586,47 @@
       var cap = el.getAttribute('data-caption') || '';
       lbImg.alt = cap;
       lbCap.textContent = cap;
+      lb.setAttribute('aria-label', cap || 'Ảnh đêm diễn');
     }
-    function open(i) { show(i); lb.classList.add('open'); lb.setAttribute('aria-hidden', 'false'); document.body.style.overflow = 'hidden'; }
-    function close() { lb.classList.remove('open'); lb.setAttribute('aria-hidden', 'true'); document.body.style.overflow = ''; lbImg.src = ''; }
+    function openAt(i, trigger) {
+      opener = trigger || null;
+      show(i);
+      lb.classList.add('open');
+      lb.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      btnClose.focus();
+    }
+    function close() {
+      lb.classList.remove('open');
+      lb.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      lbImg.src = '';
+      if (opener && opener.focus) opener.focus();
+    }
     items.forEach(function (el, i) {
       el.setAttribute('tabindex', '0');
       el.setAttribute('role', 'button');
-      el.addEventListener('click', function () { open(i); });
+      el.setAttribute('aria-label', 'Xem ảnh lớn: ' + (el.getAttribute('data-caption') || ''));
+      el.addEventListener('click', function () { openAt(i, el); });
       el.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(i); }
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openAt(i, el); }
       });
     });
-    document.getElementById('lb-close').addEventListener('click', close);
-    document.getElementById('lb-prev').addEventListener('click', function () { show(idx - 1); });
-    document.getElementById('lb-next').addEventListener('click', function () { show(idx + 1); });
+    btnClose.addEventListener('click', close);
+    btnPrev.addEventListener('click', function () { show(idx - 1); });
+    btnNext.addEventListener('click', function () { show(idx + 1); });
     lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
     document.addEventListener('keydown', function (e) {
       if (!lb.classList.contains('open')) return;
-      if (e.key === 'Escape') close();
-      else if (e.key === 'ArrowLeft') show(idx - 1);
-      else if (e.key === 'ArrowRight') show(idx + 1);
+      if (e.key === 'Escape') { close(); }
+      else if (e.key === 'ArrowLeft') { show(idx - 1); }
+      else if (e.key === 'ArrowRight') { show(idx + 1); }
+      else if (e.key === 'Tab') {
+        var p = focusables.indexOf(document.activeElement);
+        if (e.shiftKey && p <= 0) { e.preventDefault(); focusables[focusables.length - 1].focus(); }
+        else if (!e.shiftKey && p === focusables.length - 1) { e.preventDefault(); focusables[0].focus(); }
+        else if (p === -1) { e.preventDefault(); focusables[0].focus(); }
+      }
     });
   })();
 </script>
